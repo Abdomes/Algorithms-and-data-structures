@@ -1,4 +1,4 @@
-//Найти, на сколько нулей оканчивается n! 
+//Find how many zeros an n factorial ends in
 #include<iostream>
 #include<assert.h>
 using namespace std;
