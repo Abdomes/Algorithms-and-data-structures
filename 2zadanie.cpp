@@ -1,4 +1,5 @@
-//Output the decomposition of a natural number n into prime factors.
+/*Вывести разложение натурального числа n на простые множители. 
+Простые множители должны быть упорядочены по возрастанию и разделены пробелами.*/
 #include<iostream>
 #include<assert.h>
 using namespace std;
