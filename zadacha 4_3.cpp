@@ -1,7 +1,9 @@
-/*Реализовать очередь с помощью двух стеков. Использовать стек, реализованный с помощью динамического буфера.*/
+//https://contest.yandex.ru/contest/29212/problems/4_3/
 //54206042
 #include<iostream>
+
 #include<assert.h>
+
 using namespace std;
 
 class Stec
