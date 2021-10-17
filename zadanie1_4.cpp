@@ -1,8 +1,11 @@
 ﻿//https://contest.yandex.ru/contest/29212/problems/1_4/
 //53647158
 #include<iostream>
+
 #include<assert.h>
+
 #include<cmath>
+
 using namespace std;
 
 int NOD(int& n,int &A)
