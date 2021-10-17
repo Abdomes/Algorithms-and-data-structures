@@ -1,9 +1,11 @@
-﻿/*В круг выстроено N человек, пронумерованных числами от 1 до N. 
-Будем исключать каждого k-ого до тех пор, пока не уцелеет только один человек.*/
+﻿//https://contest.yandex.ru/contest/29212/problems/2_4/
 //53657922
 #include<iostream>
+
 #include<assert.h>
+
 #include<vector>
+
 using namespace std;
 
 void ochered(int& k, int& n, int *a)
