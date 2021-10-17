@@ -1,7 +1,9 @@
-/*Даны два массива неповторяющихся целых чисел, упорядоченные по возрастанию. A[0..n-1] и B[0..m-1]. n » m. Найдите их пересечение*/ 
-/*537985168*/
+//https://contest.yandex.ru/contest/29212/problems/3_3/ 
+//537985168
 #include<iostream>
+
 #include<assert.h>
+
 using namespace std;
 
 void FillArrs(int* A, int& n, int* B, int& m)
