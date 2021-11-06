@@ -2,8 +2,6 @@
 
 #include<assert.h>
 
-#include<vector>
-
 using namespace std;
 
 void queue(int& k, int& n, int* a)
