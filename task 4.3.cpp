@@ -4,104 +4,106 @@
 
 using namespace std;
 
-class Stec
+class stack
 {
 public:
-	Stec()
+    stack()
+    {
+	size = 0;
+	buffer_size = 1;
+	buffer = new int[buffer_size];
+    }
+    ~stack()
+    {
+        delete[]buffer;
+    }
+    int getsize() { return size; }
+    void grow()
+    {
+	int newbuffersize = buffer_size * 2;
+	int* newbufer = new int[newbuffersize];
+	for (int i = 0; i < buffer_size; i++)
 	{
-		size = 0;
-		buffer_size = 1;
-		buffer = new int[buffer_size];
+	    newbufer[i] = buffer[i];
 	}
-	~Stec()
+	delete[] buffer;
+	buffer = newbufer;
+	buffer_size = buffer_size * 2;
+    }
+    void push_back(int data)
+    {
+	if (size == buffer_size)
 	{
-		delete[]buffer;
+	    grow();
 	}
-	int getsize() { return size; }
-	void grow()
+	assert(size < buffer_size&& buffer_size != 0);
+	buffer[size] = data;
+	size++;
+    }
+    int pop_back()
+    {
+	if (size == 0)
 	{
-		int newbuffersize = buffer_size * 2;
-		int* newbufer = new int[newbuffersize];
-		for (int i = 0; i < buffer_size; i++)
-		{
-			newbufer[i] = buffer[i];
-		}
-		delete[] buffer;
-		buffer = newbufer;
-		buffer_size = buffer_size * 2;
+	    return -1;
 	}
-	void push_back(int data)
+	else if (size != 0)
 	{
-		if (size == buffer_size)
-		{
-			grow();
-		}
-		assert(size < buffer_size&& buffer_size != 0);
-		buffer[size] = data;
-		size++;
+	    return buffer[--size];
 	}
-	int pop_back()
-	{
-		if (size == 0)
-		{
-			return -1;
-		}
-		else if (size != 0)
-		{
-			return buffer[--size];
-		}
-	}
+    }
 private:
-	int* buffer;
-	int buffer_size;
-	int size;
+    int* buffer;
+    int buffer_size;
+    int size;
 };
 
 class queue
 {
 public:
-	Stec s1;
-	Stec s2;
-	void replace()
+    stack s1;
+    stack s2;
+    void replace()
+    {
+        while (s1.getsize())
 	{
-		while (s1.getsize())
-		{
-			s2.push_back(s1.pop_back());
-		}
+	    s2.push_back(s1.pop_back());
 	}
-	int pop_front()
+    }
+    int pop_front()
+    {
+        if (!s2.getsize()) 
 	{
-		if (!s2.getsize()) {
-			replace();
-		}
-		return s2.pop_back();
+	    replace();
 	}
-	void push_back(int value) {
-		s1.push_back(value);
-	}
+	return s2.pop_back();
+    }
+    void push_back(int value) 
+    {
+        s1.push_back(value);
+    }
 };
 
 int main()
 {
-	queue q;
-	int a, b, n;
-	cin >> n;
-	assert(n <= 1000000);
-	for (int i = 0; i < n; i++)
+    queue q;
+    int a, b, n;
+    cin >> n;
+    assert(n <= 1000000);
+    for (int i = 0; i < n; i++)
+    {
+	cin >> a >> b;
+	if (a == 2)
 	{
-		cin >> a >> b;
-		if (a == 2)
-		{
-			if (q.pop_front() != b)
-			{
-				cout << "NO";
-				return 0;
-			}
-		}
-		if (a == 3)
-		{
-			q.push_back(b);
-		}
+	    if (q.pop_front() != b)
+	        {
+		    cout << "NO";
+		    return 0;
+	        }
 	}
-	cout << "YES";
+	if (a == 3)
+	{
+	    q.push_back(b);
+	}
+    }
+    cout << "YES";
 }
