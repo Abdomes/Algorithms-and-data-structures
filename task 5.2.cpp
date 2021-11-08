@@ -12,7 +12,7 @@ public:
     stack()
     {
         size = 0;
-	buffer_size = 1;
+        buffer_size = 1;
 	buffer = new char[buffer_size];
     }
     ~stack()
