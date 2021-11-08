@@ -13,7 +13,7 @@ public:
     {
         size = 0;
         buffer_size = 1;
-	buffer = new char[buffer_size];
+        buffer = new char[buffer_size];
     }
     ~stack()
     {
