@@ -79,6 +79,28 @@ private:
         }
     }
 
+    int MaxWidth(Node* root)
+    {
+        if (root == nullptr) { return 0; }
+        int maxx = 0;
+        queue<Node*> q;
+        q.push(root);
+        while (!q.empty())
+        {
+            int c = q.size();
+            maxx = max(c, maxx);
+            while (c--)
+            {
+                Node* node = q.front();
+                q.pop();
+                if (node->left != nullptr)
+                    q.push(node->left);
+                if (node->right != nullptr)
+                    q.push(node->right);
+            }
+        }
+        return maxx;
+    }
 public:
 
     void InsertTreap(int key, int prior)
@@ -93,48 +115,12 @@ public:
 
     int MaxWidthBinTree()
     {
-        if (BinRoot == nullptr) { return 0; }
-        int maxx = 0;
-        queue<Node*> q;
-        q.push(BinRoot);
-        while (!q.empty())
-        {
-            int c = q.size();
-            maxx = max(c, maxx);
-            while (c--)
-            {
-                Node* node = q.front();
-                q.pop();
-                if (node->left != nullptr)
-                    q.push(node->left);
-                if (node->right != nullptr)
-                    q.push(node->right);
-            }
-        }
-        return maxx;
+        return MaxWidth(BinRoot);
     }
 
     int MaxWidthTreap()
     {
-        if (root == nullptr) { return 0; }
-        queue<Node*>q;
-        q.push(root);
-        int maxx = 0;
-        while (!q.empty())
-        {
-            int c = q.size();
-            maxx = max(c, maxx);
-            while (c--)
-            {
-                Node* node = q.front();
-                q.pop();
-                if (node->left != nullptr)
-                    q.push(node->left);
-                if (node->right != nullptr)
-                    q.push(node->right);
-            }
-        }
-        return maxx;
+        return MaxWidth(root);
     }
 };
 
