@@ -1,4 +1,3 @@
-#include"SetGraph.h"
 #include "ArcGraph.h"
 
 ArcGraph::ArcGraph(int n) :size(n) {}
