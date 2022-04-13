@@ -1,0 +1,76 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+struct Edges
+{
+    int to, from, cost;
+    bool operator<(Edges& other)
+    {
+        return this->cost < other.cost;
+    }
+};
+
+void make_set(vector<int>& dsu)
+{
+    for (int i = 1; i < dsu.size(); ++i)
+    {
+        dsu[i] = i;
+    }
+}
+
+int find_set(int v, vector<int>& dsu)
+{
+    return v == dsu[v] ? v : dsu[v] = find_set(dsu[v], dsu);
+}
+
+void unite(int a, int b, vector<int>& dsu, vector<int>& depth)
+{
+    a = find_set(a, dsu);
+    b = find_set(b, dsu);
+    depth[a] > depth[b] ? dsu[b] = a : dsu[a] = b;
+    if (depth[a] == depth[b])
+    {
+        ++depth[b];
+    }
+}
+
+bool connected(int a, int b, vector<int>& dsu) {
+    return find_set(a, dsu) == find_set(b, dsu);
+}
+
+int mst(vector<Edges>& edges, vector<int>& dsu, vector<int>& depth)
+{
+    int weight = 0;
+    for (int i = 1; i < edges.size(); ++i)
+    {
+        if (connected(edges[i].from, edges[i].to, dsu))
+        {
+            continue;
+        }
+        weight += edges[i].cost;
+        unite(edges[i].from, edges[i].to, dsu, depth);
+    }
+    return weight;
+}
+
+int main()
+{
+    int n, m;
+    cin >> n >> m;
+    vector<Edges>edges(m + 1);
+    for (int i = 1; i < m + 1; ++i)
+    {
+        int a, b, c;
+        cin >> a >> b >> c;
+        edges[i].from = a;
+        edges[i].to = b;
+        edges[i].cost = c;
+    }
+    sort(edges.begin(), edges.end());
+    vector<int>depth(n + 1, 1), dsu(n + 1);
+    make_set(dsu);
+    cout << mst(edges, dsu, depth);
+}
