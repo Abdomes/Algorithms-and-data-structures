@@ -4,66 +4,61 @@
 
 using namespace std;
 
-class string_by_pi_func
+void fill(string val, vector<int>& pi)
 {
-private:
-    vector<int>pi;
-    string str;
-public:
-    string_by_pi_func(string val)
+    for (int i = 0; i < val.size(); i += 2)
     {
-        for (int i = 0; i < val.size(); i += 2)
-        {
-            pi.push_back(atoi(val.substr(i, 1).c_str()));
-        }
+        pi.push_back(atoi(val.substr(i, 1).c_str()));
     }
+}
 
-    string spf()
+string spf(vector<int> &pi)
+{
+    char c = 'a';
+    string str;
+    str += c;
+    int count = 1;
+    for (int i = 1; i < pi.size(); ++i)
     {
-        char c = 'a';
-        for (int i = 0; i < pi.size(); ++i)
+        if (pi[i] != 0)
         {
-            if (pi[i] == 0)
+            str += str[pi[i] - 1];
+        }
+        else
+        {
+            str += ' ';
+            vector<bool>visited(count);
+            int j = pi[i - 1];
+            while (j > 0)
             {
-                int flag = 0;
-                str += "#";
-                for (int k = 1; k < i; ++k)
+                visited[str[j] - 'a'] = true;
+                j = pi[j - 1];
+            }
+            visited[str[j] - 'a'] = true;
+            for (int j = 0; j < count; ++j)
+            {
+                if (!visited[j])
                 {
-                    str[i] = str[k];
-                    int j = pi[i - 1];
-                    while (j > 0 && str[i] != str[j])
-                    {
-                        j = pi[j - 1];
-                    }
-                    if (str[i] == str[j])
-                    {
-                        ++j;
-                    }
-                    if (j == 0)
-                    {
-                        flag = 1;
-                        break;
-                    }
-                }
-                if (!flag)
-                {
-                    str[i] = c++;
+                    str[i] = char(j + 97);
+                    break;
                 }
             }
-            else
+            if (str[i] == ' ')
             {
-                str += str[pi[i] - 1];
+                str[i] = char(97 + count++);
             }
         }
-        return str;
     }
-};
+    return str;
+}
+
 
 int main()
 {
     string values;
     getline(cin, values);
-    string_by_pi_func spf1(values);
-    cout << spf1.spf();
+    vector<int>pi;
+    fill(values, pi);
+    cout << spf(pi) << endl;
 }
 
